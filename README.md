@@ -1,4 +1,5 @@
 # YouTube-Data-Harvesting-and-Warehousing
+![alt text](https://media.giphy.com/media/13Nc3xlO1kGg3S/giphy.gif)
 
 ## Overview
 
