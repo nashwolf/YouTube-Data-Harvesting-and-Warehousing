@@ -267,12 +267,12 @@ def populate_comments_table():
             VALUES(%s, %s, %s, %s, %s)
         '''
 
-        # Convert the datetime string to the MySQL datetime format
+        # Converting the datetime string to the MySQL datetime format
         comment_published = datetime.strptime(row['Comment_Published'], '%Y-%m-%dT%H:%M:%SZ').strftime('%Y-%m-%d %H:%M:%S')
 
         values = (
             row['Comment_ID'], row['Video_ID'], row['Comment_Text'],
-            row['Author'], comment_published  # Use the converted datetime
+            row['Author'], comment_published  # converted datetime
         )
 
         try:
@@ -366,11 +366,11 @@ def populate_videos_table():
         '''
         formatted_published_date = datetime.strptime(row['Published_Date'], '%Y-%m-%dT%H:%M:%SZ').strftime('%Y-%m-%d %H:%M:%S')
         
-        # Convert a list to a string (comma-separated)
+        # Converting a list to a string (comma-separated)
         tags_str = ', '.join(row['Tags']) if isinstance(row['Tags'], list) else row['Tags']
         thumbnail_str = ', '.join(row['Thumbnail']) if isinstance(row['Thumbnail'], list) else row['Thumbnail']
     
-        # Extract duration from MongoDB format and convert it
+        # Extracting duration from MongoDB format and convert it
         duration = parse_duration(row['Duration'])
     
 
@@ -557,7 +557,7 @@ elif questions=="3.What are the top 10 most viewed videos and their respective c
     plt.ylabel('video title')
     plt.title('Top 10 Most Viewed Videos')
     
-    # Annotate bars with view counts
+    # Annotating bars with view counts
     for bar, view_count in zip(bars, df3['views']):
         plt.text(bar.get_width(), bar.get_y() + bar.get_height()/2, f'{view_count}', 
                  ha='left', va='center')
@@ -569,11 +569,9 @@ elif questions=="4.How  many comments were made on each video, and what are thei
                 where Comments is not null'''
     cursor.execute(query4)
     
-    # Fetch the results after executing the SELECT query
     t4 = cursor.fetchall()
     df4 = pd.DataFrame(t4, columns=["No of Comments","video title"])
     
-    # Close the cursor and database connection when finished
     cursor.close()
     mydb.close()
     st.write(df4)
@@ -583,11 +581,9 @@ elif questions=="5.Which videos have the highest number of likes, and what are t
                 where Likes is not null order by Likes desc'''
     cursor.execute(query5)
     
-    # Fetch the results after executing the SELECT query
     t5 = cursor.fetchall()
     df5 = pd.DataFrame(t5, columns=["Video Title","Channel name","Like count"])
     
-    # Close the cursor and database connection when finished
     cursor.close()
     mydb.close()
     st.write(df5)
@@ -598,11 +594,9 @@ elif questions=="6.What is the total number of likes for each video, and what ar
     
     cursor.execute(query6)
     
-    # Fetch the results after executing the SELECT query
     t6 = cursor.fetchall()
     df6 = pd.DataFrame(t6, columns=["Video Title","Like count"])
     
-    # Close the cursor and database connection when finished
     cursor.close()
     mydb.close()
     st.write(df6)
@@ -614,11 +608,9 @@ elif questions=="7.What is the total number of views for each channel, and what 
     
     cursor.execute(query7)
     
-    # Fetch the results after executing the SELECT query
     t7 = cursor.fetchall()
     df7 = pd.DataFrame(t7, columns=["Channel name","Total views"])
     
-    # Close the cursor and database connection when finished
     cursor.close()
     mydb.close()
     st.write(df7)
@@ -630,11 +622,9 @@ elif questions=="8.What are the names of all the channels that have published vi
     
     cursor.execute(query8)
     
-    # Fetch the results after executing the SELECT query
     t8 = cursor.fetchall()
     df8 = pd.DataFrame(t8, columns=["Video title","Published date","Channel name"])
     
-    # Close the cursor and database connection when finished
     cursor.close()
     mydb.close()
     st.write(df8)
@@ -663,7 +653,6 @@ elif questions=="9.What is the average duration of all videos in each channel, a
     
     cursor.execute(query9)
     
-    # Fetch the results after executing the SELECT query
     t9 = cursor.fetchall()
     df9 = pd.DataFrame(t9, columns=["Channel name", "Average duration"])
     
@@ -675,8 +664,6 @@ elif questions=="9.What is the average duration of all videos in each channel, a
         T9.append(dict(channeltitle=channel_title,avgduration=average_duration_str))
     df1=pd.DataFrame(T9)
             
-    
-    # Close the cursor and database connection when finished
     cursor.close()
     mydb.close()
     st.write(df1)
@@ -688,11 +675,9 @@ elif questions=="10.Which videos have the highest number of comments and what ar
     
     cursor.execute(query10)
     
-    # Fetch the results after executing the SELECT query
     t10 = cursor.fetchall()
     df10 = pd.DataFrame(t10, columns=["Video Title", "Channel Name","Comments"])
             
-    # Close the cursor and database connection when finished
     cursor.close()
     mydb.close()
     st.write(df10)
